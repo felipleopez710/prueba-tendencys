@@ -1,0 +1,11 @@
+.details-container{
+    width: 100%;
+}
+
+.total{
+    width: 100px;
+}
+.quantity{
+    width: 80px;
+    text-align: right;
+}
