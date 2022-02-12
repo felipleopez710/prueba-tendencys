@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,6 +14,7 @@ import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
+
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -38,7 +39,7 @@ const style = {
     p: 4,
 };
 
-export const OrdersTable = ({orders}) => {
+export const OrdersTable = ({orders, createdOrders}) => {
 
     const [activeOrder, setactiveOrder] = useState(null);
 
@@ -58,10 +59,30 @@ export const OrdersTable = ({orders}) => {
                             <StyledTableCell align='center'>Número de Orden</StyledTableCell>
                             <StyledTableCell align="center">Ordenado por</StyledTableCell>
                             <StyledTableCell align="center">Monto Total</StyledTableCell>
-                            <StyledTableCell align="center">Estado de Orden</StyledTableCell>
+                            <StyledTableCell align="center">Estado del Pago</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
+                        {createdOrders.map((order) => (
+                            <TableRow role="button" key={order.id} onClick={() => handleOpenDetails(order)}>
+                                <TableCell component="th" scope="row" align='center'>
+                                    #{order.number}
+                                </TableCell>
+                                <TableCell align='center'>
+                                    {`${order.billingAddress.firstName} ${order.billingAddress.lastName}`}
+                                </TableCell>
+                                <TableCell align='center'>
+                                    ${order.totals.total}
+                                </TableCell>
+                                <TableCell align='center'>
+                                    {order.payment.status === "paid" ?
+                                        <Chip label="Pagado" color="success" variant="outlined" />
+                                        :
+                                        <Chip label="Pendiente" color="error" variant="outlined" />
+                                    }
+                                </TableCell>
+                            </TableRow>
+                        ))}
                         {orders.map((order) => (
                             <TableRow role="button" key={order.id} onClick={() => handleOpenDetails(order)}>
                                 <TableCell component="th" scope="row" align='center'>
@@ -77,7 +98,7 @@ export const OrdersTable = ({orders}) => {
                                     {order.payment.status === "paid" ?
                                         <Chip label="Pagado" color="success" variant="outlined" />
                                         :
-                                        <>No Pagado</> 
+                                        <Chip label="Pendiente" color="error" variant="outlined" />
                                     }
                                 </TableCell>
                             </TableRow>

@@ -1,0 +1,27 @@
+.product-box{
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.23);
+    border-radius: 5px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.checkmark{
+    color: transparent;
+}
+
+.product-box:hover{
+    border: 1px solid rgba(13, 110, 253)
+}
+
+.product-box-active{
+    width: 100%;
+    border: 2px solid rgba(13, 110, 253);
+    border-radius: 5px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.checkmark-active{
+    color: rgba(13, 110, 253);
+}
